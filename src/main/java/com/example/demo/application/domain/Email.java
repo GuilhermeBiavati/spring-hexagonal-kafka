@@ -34,6 +34,7 @@ public class Email {
 
     public Email(UUID emailId, String ownerRef, String emailFrom, String emailTo, String subject, String text) {
         this.setEmailId(emailId);
+        this.setEmailId(emailId);
         this.setOwnerRef(ownerRef);
         this.setEmailFrom(emailFrom);
         this.setEmailTo(emailTo);
@@ -93,23 +94,11 @@ public class Email {
     public void setEmailId(UUID emailId) {
         if (emailId == null)
             throw new IllegalArgumentException("emailId is marked non-null, but is null");
+
         if (!this.isValidUUID(emailId.toString()))
             throw new IllegalArgumentException("emailId is marked as valid uuid, but is not valid");
+
         this.emailId = emailId;
-    }
-
-    protected Boolean isValidUUID(String _id) {
-        if (_id == null) {
-            return false;
-        }
-
-        Pattern UUID_REGEX_PATTERN = Pattern.compile("^[{]?[0-9a-fA-F]{8}-([0-9a-fA-F]{4}-){3}[0-9a-fA-F]{12}[}]?$");
-        return UUID_REGEX_PATTERN.matcher(_id).matches();
-    }
-
-    protected UUID generateUUID() {
-        this.emailId = UUID.randomUUID();
-        return this.emailId;
     }
 
     public String getOwnerRef() {
@@ -120,7 +109,7 @@ public class Email {
         if (ownerRef == null)
             throw new IllegalArgumentException("ownerRef is marked non-null, but is null");
         if (ownerRef.length() == 0)
-            throw new IllegalArgumentException("ownerRef is marked not-blank but is not-blank");
+            throw new IllegalArgumentException("ownerRef is marked not-blank but is blank");
         this.ownerRef = ownerRef;
     }
 
@@ -132,7 +121,7 @@ public class Email {
         if (emailFrom == null)
             throw new IllegalArgumentException("emailFrom is marked non-null, but is null");
         if (emailFrom.length() == 0)
-            throw new IllegalArgumentException("emailFrom is marked not-blank but is not-blank");
+            throw new IllegalArgumentException("emailFrom is marked not-blank but is blank");
         this.emailFrom = emailFrom;
     }
 
@@ -144,12 +133,11 @@ public class Email {
         if (emailTo == null)
             throw new IllegalArgumentException("emailTo is marked non-null, but is null");
         if (emailTo.length() == 0)
-            throw new IllegalArgumentException("emailTo is marked not-blank but is not-blank");
+            throw new IllegalArgumentException("emailTo is marked not-blank but is blank");
         this.emailTo = emailTo;
     }
 
     public String getSubject() {
-
         return subject;
     }
 
@@ -157,7 +145,7 @@ public class Email {
         if (subject == null)
             throw new IllegalArgumentException("subject is marked non-null, but is null");
         if (subject.length() == 0)
-            throw new IllegalArgumentException("subject is marked not-blank but is not-blank");
+            throw new IllegalArgumentException("subject is marked not-blank but is blank");
         this.subject = subject;
     }
 
@@ -169,7 +157,7 @@ public class Email {
         if (text == null)
             throw new IllegalArgumentException("text is marked non-null, but is null");
         if (text.length() == 0)
-            throw new IllegalArgumentException("text is marked not-blank but is not-blank");
+            throw new IllegalArgumentException("text is marked not-blank but is blank");
         this.text = text;
     }
 
@@ -186,6 +174,27 @@ public class Email {
     }
 
     public void setStatusEmail(StatusEmail statusEmail) {
+
+        if (statusEmail == null)
+            throw new IllegalArgumentException("type is marked non-null but is null");
+        // if (statusEmail.)
+        // throw new IllegalArgumentException("type is marked as valid enum but is not
+        // valid enum");
+
         this.statusEmail = statusEmail;
+    }
+
+    protected Boolean isValidUUID(String _id) {
+        if (_id == null) {
+            return false;
+        }
+
+        Pattern UUID_REGEX_PATTERN = Pattern.compile("^[{]?[0-9a-fA-F]{8}-([0-9a-fA-F]{4}-){3}[0-9a-fA-F]{12}[}]?$");
+        return UUID_REGEX_PATTERN.matcher(_id).matches();
+    }
+
+    protected UUID generateUUID() {
+        this.emailId = UUID.randomUUID();
+        return this.emailId;
     }
 }
