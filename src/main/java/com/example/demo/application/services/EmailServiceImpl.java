@@ -1,5 +1,6 @@
 package com.example.demo.application.services;
 
+import com.example.demo.adapters.dtos.EmailDto;
 import com.example.demo.application.domain.Email;
 import com.example.demo.application.domain.PageInfo;
 import com.example.demo.application.domain.enums.StatusEmail;
@@ -8,27 +9,34 @@ import com.example.demo.application.ports.EmailServicePort;
 import com.example.demo.application.ports.SendEmailServicePort;
 import com.example.demo.application.ports.SendKafkaServicePort;
 
+import org.springframework.stereotype.Service;
+
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+@Service
 public class EmailServiceImpl implements EmailServicePort {
 
-    private final EmailRepositoryPort emailRepositoryPort;
-    private final SendEmailServicePort sendEmailServicePort;
-    private final SendKafkaServicePort sendKafkaServicePort;
+    private EmailRepositoryPort emailRepositoryPort;
+    private SendEmailServicePort sendEmailServicePort;
+    private SendKafkaServicePort sendKafkaServicePort;
 
-    public EmailServiceImpl(final EmailRepositoryPort emailRepositoryPort,
-            final SendEmailServicePort sendEmailServicePort, SendKafkaServicePort sendKafkaServicePort) {
+    public EmailServiceImpl(EmailRepositoryPort emailRepositoryPort,
+            SendEmailServicePort sendEmailServicePort, SendKafkaServicePort sendKafkaService) {
         this.emailRepositoryPort = emailRepositoryPort;
         this.sendEmailServicePort = sendEmailServicePort;
-        this.sendKafkaServicePort = sendKafkaServicePort;
+        this.sendKafkaServicePort = sendKafkaService;
     }
 
     @Override
     public Email sendEmail(Email email) {
+
+        // Email email = emailDto.toEntity();
+
         email.setSendDateEmail(LocalDateTime.now());
+
         try {
             sendEmailServicePort.sendEmailSmtp(email);
             email.setStatusEmail(StatusEmail.SENT);
@@ -51,9 +59,9 @@ public class EmailServiceImpl implements EmailServicePort {
     }
 
     @Override
-    public List<Email> findAll(PageInfo pageInfo) {
+    public Iterable<Email> findAll(PageInfo pageInfo) {
         // inserir manipulação de dados/regras
-        return emailRepositoryPort.findAll(pageInfo);
+        return this.emailRepositoryPort.findAll();
     }
 
     @Override

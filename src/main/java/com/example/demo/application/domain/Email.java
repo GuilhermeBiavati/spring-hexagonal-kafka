@@ -5,14 +5,29 @@ import java.time.LocalDateTime;
 import java.util.UUID;
 import java.util.regex.Pattern;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 import com.example.demo.application.domain.enums.StatusEmail;
 
+@Entity
+@Table(name = "emails")
 public class Email {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    // @Column(columnDefinition = "VARBINARY(16)")
     private UUID emailId;
+    @Column
     private String ownerRef;
     private String emailFrom;
     private String emailTo;
     private String subject;
+    @Column(columnDefinition = "TEXT")
     private String text;
     private LocalDateTime sendDateEmail;
     private StatusEmail statusEmail;
@@ -175,8 +190,8 @@ public class Email {
 
     public void setStatusEmail(StatusEmail statusEmail) {
 
-        if (statusEmail == null)
-            throw new IllegalArgumentException("type is marked non-null but is null");
+        // if (statusEmail == null)
+        // throw new IllegalArgumentException("type is marked non-null but is null");
         // if (statusEmail.)
         // throw new IllegalArgumentException("type is marked as valid enum but is not
         // valid enum");

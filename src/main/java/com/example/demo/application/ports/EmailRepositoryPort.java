@@ -10,7 +10,8 @@ import com.example.demo.application.domain.PageInfo;
 public interface EmailRepositoryPort {
     Email save(Email email);
 
-    List<Email> findAll(PageInfo pageInfo);
+    // List<Email> findAll(PageInfo pageInfo);
+    Iterable<Email> findAll();
 
     Optional<Email> findById(UUID emailId);
 }

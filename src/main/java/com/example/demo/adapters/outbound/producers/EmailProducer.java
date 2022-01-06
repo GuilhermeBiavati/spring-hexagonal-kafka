@@ -14,8 +14,9 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import com.google.gson.Gson;
 
-@Component
-@Primary
+@Slf4j
+@Service
+@RequiredArgsConstructor
 public class EmailProducer implements SendKafkaServicePort {
 
     @Value("${topic.name.producer}")

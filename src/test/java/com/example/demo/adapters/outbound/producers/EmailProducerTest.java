@@ -1,38 +1,38 @@
-package com.example.demo.adapters.outbound.producers;
+// package com.example.demo.adapters.outbound.producers;
 
-import static org.mockito.Mockito.verify;
+// import static org.mockito.Mockito.verify;
 
-import com.example.demo.application.domain.Email;
+// import com.example.demo.application.domain.Email;
 
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Disabled;
-import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.junit.jupiter.MockitoExtension;
+// import org.junit.jupiter.api.BeforeEach;
+// import org.junit.jupiter.api.Disabled;
+// import org.junit.jupiter.api.Test;
+// import org.junit.jupiter.api.extension.ExtendWith;
+// import org.mockito.junit.jupiter.MockitoExtension;
 
-@ExtendWith(MockitoExtension.class)
-public class EmailProducerTest {
+// @ExtendWith(MockitoExtension.class)
+// public class EmailProducerTest {
 
-    private EmailProducer underTest;
+// private EmailProducer underTest;
 
-    @BeforeEach
-    void setUp() {
-        underTest = new EmailProducer();
-    }
+// @BeforeEach
+// void setUp() {
+// underTest = new EmailProducer();
+// }
 
-    @Test
-    @Disabled
-    void itShouldSendKafka() {
+// @Test
+// @Disabled
+// void itShouldSendKafka() {
 
-        // given
-        Email email = new Email();
+// // given
+// Email email = new Email();
 
-        // when
+// // when
 
-        underTest.sendKafka(email);
-        // then
+// underTest.sendKafka(email);
+// // then
 
-        // verify()
+// // verify()
 
-    }
-}
+// }
+// }
