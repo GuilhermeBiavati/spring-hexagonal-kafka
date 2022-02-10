@@ -1,21 +1,16 @@
 package com.example.demo.adapters.outbound.persistence;
 
-// import com.example.demo.adapters.outbound.persistence.entities.EmailEntity;
 import com.example.demo.application.domain.Email;
 import com.example.demo.application.domain.PageInfo;
 import com.example.demo.application.ports.EmailRepositoryPort;
-// import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Primary;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
-import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Repository;
 
-import java.util.List;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.stereotype.Repository;
+import org.springframework.data.domain.Pageable;
+
 import java.util.Optional;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 @Repository
 public class PostgresEmailRepository implements EmailRepositoryPort {
@@ -32,18 +27,20 @@ public class PostgresEmailRepository implements EmailRepositoryPort {
     }
 
     @Override
-    public Iterable<Email> findAll() {
-        // Pageable pageable = PageRequest.of(pageInfo.getPageNumber(),
-        // pageInfo.getPageSize());
-        // return emailRepository.findAll(pageable).stream().map(entity ->
-        // modelMapper.map(entity, Email.class))
-        // .collect(Collectors.toList());
-
-        return this.emailRepository.findAll();
+    public Page<Email> findAll(Pageable pageable) {
+        return this.emailRepository.findAll(pageable);
     }
 
     @Override
     public Optional<Email> findById(UUID emailId) {
         return this.emailRepository.findById(emailId);
     }
+
+    // @Override
+    // public Iterable<Email> findAll(
+    // org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties.Pageable
+    // pageable) {
+    // // TODO Auto-generated method stub
+    // return null;
+    // }
 }

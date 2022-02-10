@@ -8,8 +8,10 @@ import lombok.Setter;
 import javax.validation.constraints.NotBlank;
 
 import com.example.demo.application.domain.Email;
-import com.github.dozermapper.core.DozerBeanMapperBuilder;
-import com.github.dozermapper.core.Mapper;
+// import com.github.dozermapper.core.DozerBeanMapperBuilder;
+// import com.github.dozermapper.core.Mapper;
+
+import org.modelmapper.ModelMapper;
 
 // @Data
 @Getter
@@ -33,8 +35,8 @@ public class EmailDto {
     private String text;
 
     public Email toEntity() {
-        Mapper mapper = DozerBeanMapperBuilder.buildDefault();
-        Email entity = mapper.map(this, Email.class);
+        ModelMapper modelMapper = new ModelMapper();
+        Email entity = modelMapper.map(this, Email.class);
         return entity;
     }
 

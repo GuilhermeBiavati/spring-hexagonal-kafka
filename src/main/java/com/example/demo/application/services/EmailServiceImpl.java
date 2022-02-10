@@ -9,6 +9,8 @@ import com.example.demo.application.ports.EmailServicePort;
 import com.example.demo.application.ports.SendEmailServicePort;
 import com.example.demo.application.ports.SendKafkaServicePort;
 
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -59,9 +61,9 @@ public class EmailServiceImpl implements EmailServicePort {
     }
 
     @Override
-    public Iterable<Email> findAll(PageInfo pageInfo) {
+    public Page<Email> findAll(Pageable pageable) {
         // inserir manipulação de dados/regras
-        return this.emailRepositoryPort.findAll();
+        return this.emailRepositoryPort.findAll(pageable);
     }
 
     @Override

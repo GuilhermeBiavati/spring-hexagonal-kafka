@@ -4,9 +4,9 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-import com.example.demo.adapters.dtos.EmailDto;
 import com.example.demo.application.domain.Email;
-import com.example.demo.application.domain.PageInfo;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Page;
 
 public interface EmailServicePort {
 
@@ -14,8 +14,8 @@ public interface EmailServicePort {
 
     void sendKafka(Email email);
 
-    // List<Email> findAll(PageInfo pageInfo);
-    Iterable<Email> findAll(PageInfo pageInfo);
+    Page<Email> findAll(Pageable pageable);
+    // Iterable<Email> findAll(Pageable pageable);
 
     Optional<Email> findById(UUID emailId);
 

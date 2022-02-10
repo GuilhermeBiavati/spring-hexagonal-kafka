@@ -2,17 +2,16 @@ package com.example.demo.adapters.inbound.controllers;
 
 import com.example.demo.adapters.dtos.EmailDto;
 import com.example.demo.application.domain.Email;
-import com.example.demo.application.domain.PageInfo;
 import com.example.demo.application.ports.EmailServicePort;
 
-import org.apache.commons.beanutils.BeanUtils;
-import org.springframework.boot.autoconfigure.data.web.SpringDataWebProperties.Pageable;
-import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.data.domain.*;
 
+import java.util.List;
 import java.util.UUID;
 
 import javax.validation.Valid;
@@ -28,9 +27,6 @@ public class EmailController {
 
     @PostMapping("/sending-topic")
     public ResponseEntity<String> sendingKafka(@RequestBody @Valid EmailDto emailDto) {
-        // Email email = new Email();
-        // BeanUtils.copyProperties(emailDto, email);
-
         try {
             emailServicePort.sendKafka(emailDto.toEntity());
             return new ResponseEntity<>("Mensagem enviada com sucesso", HttpStatus.OK);
@@ -53,19 +49,11 @@ public class EmailController {
     }
 
     @GetMapping("/emails")
-    public ResponseEntity getAllEmails() {
-        // @PageableDefault(page = 0, size = 5, sort = "emailId", direction =
-        // Sort.Direction.DESC) Pageable pageable
-        PageInfo pageInfo = new PageInfo();
-        // BeanUtils.copyProperties(pageable, pageInfo);
-
-        // Iterable<Email> emailList = emailServicePort.findAll(pageInfo);
-
-        // return new ResponseEntity<>(new PageImpl<Email>(emailList, pageable,
-        // emailList.size()), HttpStatus.OK);
-
+    public ResponseEntity<Page<Email>> getAllEmails(
+            @PageableDefault(page = 0, size = 5, sort = "emailId", direction = Sort.Direction.DESC) Pageable pageable) {
         try {
-            return ResponseEntity.ok().body(this.emailServicePort.findAll(pageInfo));
+            Page<Email> emailList = emailServicePort.findAll(pageable);
+            return ResponseEntity.ok().body(emailList);
         } catch (Exception e) {
 
         }
